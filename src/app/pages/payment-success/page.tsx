@@ -1,13 +1,9 @@
-import { Metadata } from "next";
+"use client";
+
 import Image from "next/image";
 
 import { useEffect, useState, useRef } from "react";
 import { useSearchParams } from "next/navigation";
-
-export const metadata: Metadata = {
-  title: "Next.js Settings Page | NextAdmin - Next.js Dashboard c",
-  description: "This is Next.js Settings page for NextAdmin Dashboard Kit",
-};
 
 const PaymentSuccess = () => {
   const searchParams = useSearchParams()
@@ -68,7 +64,7 @@ const PaymentSuccess = () => {
                 Your Payment Was Successfully!
               </h1>
               <p className="mx-auto w-full max-w-[588px]">
-                Thank you very much for your payment. We are delighted to have you as a client and will make every effort to provide you with exceptional service. Should you have any inquiries or need assistance, please don't hesitate to reach out.
+                Thank you very much for your payment. We are delighted to have you as a client and will make every effort to provide you with exceptional service. Should you have any inquiries or need assistance, please do not hesitate to reach out.
               </p>
             </div>
           </div>
