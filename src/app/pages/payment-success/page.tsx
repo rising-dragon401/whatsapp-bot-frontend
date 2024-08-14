@@ -64,7 +64,7 @@ const PaymentSuccess = () => {
                 Your Payment Was Successfully!
               </h1>
               <p className="mx-auto w-full max-w-[588px]">
-                Thank you for your payment. We're excited to assist you. For any inquiries, please return to the WhatsApp thread.
+                Thank you for your payment. We are excited to assist you. For any inquiries, please return to the WhatsApp thread.
               </p>
             </div>
           </div>
