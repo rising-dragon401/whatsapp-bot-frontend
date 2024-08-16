@@ -3,27 +3,27 @@ import Link from "next/link";
 import Image from "next/image";
 import { Metadata } from "next";
 import AuthLayout from "@/components/Layouts/AuthLayout";
-import Signin from "@/components/Auth/Signin";
+import Signup from "@/components/Auth/Signup";
 
 export const metadata: Metadata = {
   title: "Next.js Login Page | NextAdmin - Next.js Dashboard Kit",
   description: "This is Next.js Login Page NextAdmin Dashboard Kit",
 };
 
-const SignIn: React.FC = () => {
+const SignUp: React.FC = () => {
   return (
     <AuthLayout>
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-      <h2 className="text-[26px] font-bold leading-[30px] text-dark dark:text-white">
-        Sign In
-      </h2>
-    </div>
+        <h2 className="text-[26px] font-bold leading-[30px] text-dark dark:text-white">
+          Sign Up
+        </h2>
+      </div>
 
       <div className="rounded-[10px] bg-white shadow-1 dark:bg-gray-dark dark:shadow-card">
         <div className="flex flex-wrap items-center">
           <div className="w-full xl:w-1/2">
             <div className="w-full p-4 sm:p-12.5 xl:p-15">
-              <Signin />
+              <Signup />
             </div>
           </div>
 
@@ -46,7 +46,7 @@ const SignIn: React.FC = () => {
                 />
               </Link>
               <p className="mb-3 text-xl font-medium text-dark dark:text-white">
-                Sign in to your account
+                Get Started for Free
               </p>
 
               <h1 className="mb-4 text-2xl font-bold text-dark dark:text-white sm:text-heading-3">
@@ -54,7 +54,7 @@ const SignIn: React.FC = () => {
               </h1>
 
               <p className="w-full max-w-[375px] font-medium text-dark-4 dark:text-dark-6">
-                Please sign in to your account by completing the necessary
+                For create your account please fill up the necessary
                 fields below
               </p>
 
@@ -75,4 +75,4 @@ const SignIn: React.FC = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;
