@@ -35,7 +35,7 @@ const DropdownUser = () => {
         </span>
 
         <span className="flex items-center gap-2 font-medium text-dark dark:text-dark-6">
-          <span className="hidden lg:block">{user.name}</span>
+          <span className="hidden lg:block">{user?.name}</span>
 
           <svg
             className={`fill-current duration-200 ease-in ${dropdownOpen && "rotate-180"}`}
@@ -79,10 +79,10 @@ const DropdownUser = () => {
 
             <span className="block">
               <span className="block font-medium text-dark dark:text-white">
-                {user.name}
+                {user?.name}
               </span>
               <span className="block font-medium text-dark-5 dark:text-dark-6">
-                {user.email}
+                {user?.email}
               </span>
             </span>
           </div>
