@@ -4,6 +4,7 @@ import DropdownNotification from "../Header/DropdownNotification";
 import DropdownUser from "../Header/DropdownUser";
 import Image from "next/image";
 import SearchForm from "@/components/Header/SearchForm";
+import { useAuth } from "@/context/AuthContext";
 
 const AdminHeader = (props: {
   sidebarOpen: string | boolean | undefined;
@@ -60,7 +61,7 @@ const AdminHeader = (props: {
             <Image
               width={32}
               height={32}
-              src={"/images/logo/logo-icon.svg"}
+              src={"/images/logo/Mark_RGB_Blue.svg"}
               alt="Logo"
             />
           </Link>

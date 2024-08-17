@@ -1,24 +1,27 @@
 "use client";
 import React, { useState } from "react";
-import Link from "next/link";
 import axiosInstance from "@/api/axiosConfig";
+import { useRouter } from "next/navigation";
 
 export default function SignupWithPassword() {
   const [data, setData] = useState({
     remember: false,
   });
-
   const [username, setUsername] = useState('');
   const [useremail, setUseremail] = useState('');
   const [password, setPassword] = useState('');
+
+  const router = useRouter()
   
   const handleSignup = async () => {
     try {
-      console.log("+++++++++++++++++++ handle Signup")
       const response = await axiosInstance.post('/auth/signup', {
         "name": username,
         "email": useremail,
         "password": password});
+      if (response) {
+        router.push("/auth/signin");
+      }
     } catch (error) {
       console.error(error)
     }

@@ -172,20 +172,18 @@ const AdminSidebar = ({ sidebarOpen, setSidebarOpen }: AdminSidebarProps) => {
             <Image
               width={176}
               height={32}
-              src={"/images/logo/logo-dark.svg"}
+              src={"/images/logo/Logo_RGB_Blue.svg"}
               alt="Logo"
               priority
               className="dark:hidden"
-              style={{ width: "auto", height: "auto" }}
             />
             <Image
               width={176}
               height={32}
-              src={"/images/logo/logo.svg"}
+              src={"/images/logo/Logo_RGB_White_Blue.svg"}
               alt="Logo"
               priority
               className="hidden dark:block"
-              style={{ width: "auto", height: "auto" }}
             />
           </Link>
 

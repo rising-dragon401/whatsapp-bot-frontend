@@ -49,7 +49,6 @@ const EditWaBot = () => {
       try{
         const response = await axiosInstance.get(`/wabot/${WaBotId}`)
         if (response) {
-          console.log("++++++++++++++++++", response);
           let botdata = response.data;
           setBotName(botdata["name"]);
           setBotNumber(botdata["bot_number"].split(":")[1]);
@@ -73,7 +72,7 @@ const EditWaBot = () => {
 
   const handleSave = async () => {
     try {
-      const response = await axiosInstance.post('/wabot/', {
+      const response = await axiosInstance.put(`/wabot/${WaBotId}`, {
         "name": botName,
         "description": description,
         "price": botPrice,

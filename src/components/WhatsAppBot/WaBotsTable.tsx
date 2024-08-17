@@ -55,7 +55,7 @@ const WaBotsTable = () => {
         </h4>
         <ButtonDefault
           label="Create New Bot"
-          link="/admin/whatsapp/create"
+          link="/admin/whatsapp/new"
           customClasses="border rounded-full border-primary text-primary py-2 px-6"
         >
           <svg
