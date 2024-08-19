@@ -31,8 +31,8 @@ export const AuthProvider = ({ children, }: Readonly<{children: React.ReactNode;
         router.push('/auth/signin');
       } else {
         const decodedToken = jwtDecode<JwtPayload>(token);
-        const subject = JSON.parse(decodedToken.sub ? decodedToken.sub : "");
-        setUser({email: subject?.email, name: subject?.name});
+        const subject = JSON.stringify(decodedToken.sub);
+        setUser(JSON.parse(subject));
       }
     } catch (error) {
       console.error("Failed to decode token", error);
