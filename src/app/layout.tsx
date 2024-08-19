@@ -24,9 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning={true}>
-        <AuthProvider>
-          {loading ? <Loader /> : children}
-        </AuthProvider>
+        {loading ? <Loader /> : children}
       </body>
     </html>
   );

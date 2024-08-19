@@ -2,6 +2,7 @@
 import React, { useState, ReactNode } from "react";
 import AdminSidebar from "@/components/AdminSideBar";
 import AdminHeader from "@/components/AdminHeader";
+import { AuthProvider } from "@/context/AuthContext";
 
 export default function AdminLayout({
   children,
@@ -10,7 +11,7 @@ export default function AdminLayout({
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
-    <>
+    <AuthProvider>
       {/* <!-- ===== Page Wrapper Star ===== --> */}
       <div className="flex h-screen overflow-hidden">
         {/* <!-- ===== Sidebar Star ===== --> */}
@@ -34,6 +35,6 @@ export default function AdminLayout({
         {/* <!-- ===== Content Area End ===== --> */}
       </div>
       {/* <!-- ===== Page Wrapper End ===== --> */}
-    </>
+    </AuthProvider>
   );
 }
