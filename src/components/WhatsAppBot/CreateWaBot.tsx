@@ -57,7 +57,6 @@ const CreateWaBot = () => {
       if (response)
         router.push('/admin/whatsapp');
     } catch (error) {
-      console.error(error);
     }
   }
 

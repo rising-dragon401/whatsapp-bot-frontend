@@ -59,7 +59,6 @@ const EditWaBot = () => {
           setSystemPrompt(botdata["system_prompt"]);
         }
       } catch (error) {
-        console.error(error);
       }
     }
 
@@ -84,7 +83,6 @@ const EditWaBot = () => {
       if (response)
         router.push('/admin/whatsapp');
     } catch (error) {
-      console.error(error);
     }
   }
 

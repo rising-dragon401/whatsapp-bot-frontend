@@ -17,7 +17,6 @@ const WaBotsTable = () => {
         if (response)
           setWaBots(response.data);
       } catch (error) {
-        console.error(error);
       }
     }
 
@@ -40,7 +39,6 @@ const WaBotsTable = () => {
           }
         }
       } catch (error) {
-        console.error(error);
       }
     }
 
@@ -49,7 +47,7 @@ const WaBotsTable = () => {
 
   return (
     <div className="rounded-[10px] border border-stroke bg-white p-4 shadow-1 dark:border-dark-3 dark:bg-gray-dark dark:shadow-card sm:p-7.5">
-      <div className="flex flex-grow px-4 py-6 md:px-6 xl:px-9 justify-between">
+      <div className="flex flex-grow px-4 py-6 md:px-6 xl:px-9 justify-between border-b border-stroke dark:border-dark-3">
         <h4 className="text-body-2xlg font-bold text-dark dark:text-white">
           Bot List
         </h4>
@@ -75,7 +73,7 @@ const WaBotsTable = () => {
           </svg>
         </ButtonDefault>
       </div>
-      <div className="max-w-full overflow-x-auto">
+      <div className="max-w-full overflow-x-auto py-7">
         <table className="w-full table-auto">
           <thead>
             <tr className="bg-[#F7F9FC] text-left dark:bg-dark-2">

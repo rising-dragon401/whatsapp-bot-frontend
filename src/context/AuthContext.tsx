@@ -35,7 +35,6 @@ export const AuthProvider = ({ children, }: Readonly<{children: React.ReactNode;
         setUser(JSON.parse(subject));
       }
     } catch (error) {
-      console.error("Failed to decode token", error);
       router.push('/auth/signin');
       setUser(null);
     }

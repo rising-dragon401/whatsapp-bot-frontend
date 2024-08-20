@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import axiosInstance from "@/api/axiosConfig";
 import { useRouter } from "next/navigation";
+import axios, { AxiosError } from "axios";
 
 export default function SigninWithPassword() {
   const [data, setData] = useState({
@@ -10,23 +10,42 @@ export default function SigninWithPassword() {
   });
   const [useremail, setUseremail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState<string | null>(null)
 
   const router = useRouter();
 
   const handleSignin = async () => {
     try {
-      const response = await axiosInstance.post('/auth/signin', {
+      const apiClient = axios.create({
+        baseURL: 'https://homi.chat/api/'
+      });
+      const response = await apiClient.post('/auth/signin', {
         "email": useremail,
         "password": password});
       localStorage.setItem('access_token', response.data.access_token);
-      router.push('/admin');
+      localStorage.setItem('refresh_token', response.data.refresh_token);
+      router.push('/admin');      
     } catch (error) {
-      console.error(error);
+      if (error instanceof AxiosError) {
+        setError(error.response? error.response.data.detail : 'An error occurred');
+      } else {
+        setError('An unexpected error occurred');
+      }
     }
   }
 
   return (
     <>
+    {
+      error &&
+      <div className="my-6 flex items-center justify-center">
+        <span className="block h-px w-full bg-stroke dark:bg-dark-3"></span>
+        <div className="block w-full min-w-fit bg-white px-3 text-center font-medium dark:bg-gray-dark">
+          {error}
+        </div>
+        <span className="block h-px w-full bg-stroke dark:bg-dark-3"></span>
+      </div>
+    }
       <div className="mb-4">
         <label
           htmlFor="email"
