@@ -1,11 +1,12 @@
 import Link from "next/link";
-import DarkModeSwitcher from "./DarkModeSwitcher";
-import DropdownNotification from "./DropdownNotification";
-import DropdownUser from "./DropdownUser";
+import DarkModeSwitcher from "../Header/DarkModeSwitcher";
+import DropdownNotification from "../Header/DropdownNotification";
+import DropdownUser from "../Header/DropdownUser";
 import Image from "next/image";
 import SearchForm from "@/components/Header/SearchForm";
+import { useAuth } from "@/context/AuthContext";
 
-const Header = (props: {
+const AdminHeader = (props: {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
 }) => {
@@ -67,27 +68,15 @@ const Header = (props: {
         </div>
 
         <div className="hidden xl:block">
-          <div>
-            <h1 className="mb-0.5 text-heading-5 font-bold text-dark dark:text-white">
-              Dashboard
-            </h1>
-            <p className="font-medium">Next.js Admin Dashboard Solution</p>
-          </div>
         </div>
 
         <div className="flex items-center justify-normal gap-2 2xsm:gap-4 lg:w-full lg:justify-between xl:w-auto xl:justify-normal">
           <ul className="flex items-center gap-2 2xsm:gap-4">
-            {/* <!-- Search Form --> */}
-            <SearchForm />
-            {/* <!-- Search Form --> */}
-
+            
             {/* <!-- Dark Mode Toggle --> */}
             <DarkModeSwitcher />
             {/* <!-- Dark Mode Toggle --> */}
 
-            {/* <!-- Notification Menu Area --> */}
-            <DropdownNotification />
-            {/* <!-- Notification Menu Area --> */}
           </ul>
 
           {/* <!-- User Area --> */}
@@ -99,4 +88,4 @@ const Header = (props: {
   );
 };
 
-export default Header;
+export default AdminHeader;

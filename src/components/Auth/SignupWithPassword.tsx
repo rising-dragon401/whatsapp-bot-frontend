@@ -1,30 +1,31 @@
 "use client";
 import React, { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios, { AxiosError } from "axios";
 
-export default function SigninWithPassword() {
+export default function SignupWithPassword() {
   const [data, setData] = useState({
     remember: false,
   });
-  const [useremail, setUseremail] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('');
+  const [useremail, setUseremail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null)
 
-  const router = useRouter();
-
-  const handleSignin = async () => {
+  const router = useRouter()
+  
+  const handleSignup = async () => {
     try {
       const apiClient = axios.create({
         baseURL: 'https://homi.chat/api/'
       });
-      const response = await apiClient.post('/auth/signin', {
+      const response = await apiClient.post('/auth/signup', {
+        "name": username,
         "email": useremail,
         "password": password});
-      localStorage.setItem('access_token', response.data.access_token);
-      localStorage.setItem('refresh_token', response.data.refresh_token);
-      router.push('/admin');      
+      if (response) {
+        router.push("/auth/signin");
+      }
     } catch (error) {
       if (error instanceof AxiosError) {
         setError(error.response? error.response.data.detail : 'An error occurred');
@@ -36,16 +37,59 @@ export default function SigninWithPassword() {
 
   return (
     <>
-    {
-      error &&
-      <div className="my-6 flex items-center justify-center">
-        <span className="block h-px w-full bg-stroke dark:bg-dark-3"></span>
-        <div className="block w-full min-w-fit bg-white px-3 text-center font-medium dark:bg-gray-dark">
-          {error}
+      {
+        error &&
+        <div className="my-6 flex items-center justify-center">
+          <span className="block h-px w-full bg-stroke dark:bg-dark-3"></span>
+          <div className="block w-full min-w-fit bg-white px-3 text-center font-medium dark:bg-gray-dark">
+            {error}
+          </div>
+          <span className="block h-px w-full bg-stroke dark:bg-dark-3"></span>
         </div>
-        <span className="block h-px w-full bg-stroke dark:bg-dark-3"></span>
+      }
+      <div className="mb-4">
+        <label
+          htmlFor="name"
+          className="mb-2.5 block font-medium text-dark dark:text-white"
+        >
+          Name
+        </label>
+        <div className="relative">
+          <input
+            type="text"
+            placeholder="Enter your full name"
+            name="name"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="w-full rounded-lg border border-stroke bg-transparent py-[15px] pl-6 pr-11 font-medium text-dark outline-none focus:border-primary focus-visible:shadow-none dark:border-dark-3 dark:bg-dark-2 dark:text-white dark:focus:border-primary"
+          />
+
+          <span className="absolute right-4.5 top-1/2 -translate-y-1/2">
+            <svg
+              className="fill-current"
+              width="22"
+              height="22"
+              viewBox="0 0 22 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M10.9975 1.146C8.59278 1.146 6.64335 3.09542 6.64335 5.50016C6.64335 7.9049 8.59278 9.85433 10.9975 9.85433C13.4023 9.85433 15.3517 7.9049 15.3517 5.50016C15.3517 3.09542 13.4023 1.146 10.9975 1.146ZM8.01835 5.50016C8.01835 3.85481 9.35217 2.521 10.9975 2.521C12.6429 2.521 13.9767 3.85481 13.9767 5.50016C13.9767 7.14551 12.6429 8.47933 10.9975 8.47933C9.35217 8.47933 8.01835 7.14551 8.01835 5.50016Z"
+                fill=""
+              />
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M10.9975 11.2293C8.87676 11.2293 6.92287 11.7114 5.47501 12.5258C4.04871 13.3281 2.97669 14.5441 2.97669 16.0418L2.97662 16.1353C2.97559 17.2003 2.97429 18.537 4.14673 19.4917C4.72374 19.9616 5.53096 20.2958 6.62154 20.5165C7.71518 20.7379 9.14056 20.8543 10.9975 20.8543C12.8545 20.8543 14.2799 20.7379 15.3735 20.5165C16.4641 20.2958 17.2713 19.9616 17.8483 19.4917C19.0207 18.537 19.0194 17.2003 19.0184 16.1353L19.0184 16.0418C19.0184 14.5441 17.9463 13.3281 16.52 12.5258C15.0722 11.7114 13.1183 11.2293 10.9975 11.2293ZM4.35169 16.0418C4.35169 15.2614 4.92128 14.4149 6.14912 13.7242C7.35542 13.0457 9.06819 12.6043 10.9975 12.6043C12.9269 12.6043 14.6396 13.0457 15.8459 13.7242C17.0738 14.4149 17.6434 15.2614 17.6434 16.0418C17.6434 17.2406 17.6064 17.9155 16.9801 18.4255C16.6404 18.7021 16.0726 18.9721 15.1007 19.1688C14.1318 19.3649 12.8072 19.4793 10.9975 19.4793C9.18781 19.4793 7.8632 19.3649 6.89433 19.1688C5.92242 18.9721 5.35463 18.7021 5.01498 18.4255C4.38864 17.9155 4.35169 17.2406 4.35169 16.0418Z"
+                fill=""
+              />
+            </svg>
+          </span>
+        </div>
       </div>
-    }
+
       <div className="mb-4">
         <label
           htmlFor="email"
@@ -94,9 +138,51 @@ export default function SigninWithPassword() {
           <input
             type="password"
             name="password"
+            placeholder="Enter your password"
+            autoComplete="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter your password"
+            className="w-full rounded-lg border border-stroke bg-transparent py-[15px] pl-6 pr-11 font-medium text-dark outline-none focus:border-primary focus-visible:shadow-none dark:border-dark-3 dark:bg-dark-2 dark:text-white dark:focus:border-primary"
+          />
+
+          <span className="absolute right-4.5 top-1/2 -translate-y-1/2">
+            <svg
+              className="fill-current"
+              width="22"
+              height="22"
+              viewBox="0 0 22 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M8.48177 14.6668C8.48177 13.2746 9.61039 12.146 11.0026 12.146C12.3948 12.146 13.5234 13.2746 13.5234 14.6668C13.5234 16.059 12.3948 17.1877 11.0026 17.1877C9.61039 17.1877 8.48177 16.059 8.48177 14.6668ZM11.0026 13.521C10.3698 13.521 9.85677 14.034 9.85677 14.6668C9.85677 15.2997 10.3698 15.8127 11.0026 15.8127C11.6354 15.8127 12.1484 15.2997 12.1484 14.6668C12.1484 14.034 11.6354 13.521 11.0026 13.521Z"
+                fill=""
+              />
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M6.19011 7.3335C6.19011 4.67563 8.34474 2.521 11.0026 2.521C13.2441 2.521 15.1293 4.05405 15.6635 6.12986C15.7582 6.49757 16.133 6.71894 16.5007 6.6243C16.8684 6.52965 17.0898 6.15484 16.9951 5.78713C16.3083 3.11857 13.8867 1.146 11.0026 1.146C7.58534 1.146 4.81511 3.91623 4.81511 7.3335V8.5277C4.60718 8.54232 4.4112 8.56135 4.22683 8.58614C3.40173 8.69707 2.70702 8.93439 2.15526 9.48615C1.6035 10.0379 1.36618 10.7326 1.25525 11.5577C1.1484 12.3524 1.14842 13.3629 1.14844 14.6165V14.7171C1.14842 15.9708 1.1484 16.9812 1.25525 17.7759C1.36618 18.601 1.6035 19.2958 2.15526 19.8475C2.70702 20.3993 3.40173 20.6366 4.22683 20.7475C5.02155 20.8544 6.03202 20.8543 7.28564 20.8543H14.7196C15.9732 20.8543 16.9837 20.8544 17.7784 20.7475C18.6035 20.6366 19.2982 20.3993 19.85 19.8475C20.4017 19.2958 20.639 18.601 20.75 17.7759C20.8568 16.9812 20.8568 15.9708 20.8568 14.7171V14.6165C20.8568 13.3629 20.8568 12.3524 20.75 11.5577C20.639 10.7326 20.4017 10.0379 19.85 9.48615C19.2982 8.93439 18.6035 8.69707 17.7784 8.58614C16.9837 8.47929 15.9732 8.47931 14.7196 8.47933H7.28564C6.89741 8.47932 6.53251 8.47932 6.19011 8.48249V7.3335ZM4.41005 9.94888C3.73742 10.0393 3.38123 10.2047 3.12753 10.4584C2.87383 10.7121 2.70842 11.0683 2.61799 11.7409C2.5249 12.4333 2.52344 13.351 2.52344 14.6668C2.52344 15.9826 2.5249 16.9003 2.61799 17.5927C2.70842 18.2653 2.87383 18.6215 3.12753 18.8752C3.38123 19.1289 3.73742 19.2943 4.41005 19.3848C5.10245 19.4779 6.02014 19.4793 7.33594 19.4793H14.6693C15.9851 19.4793 16.9028 19.4779 17.5952 19.3848C18.2678 19.2943 18.624 19.1289 18.8777 18.8752C19.1314 18.6215 19.2968 18.2653 19.3872 17.5927C19.4803 16.9003 19.4818 15.9826 19.4818 14.6668C19.4818 13.351 19.4803 12.4333 19.3872 11.7409C19.2968 11.0683 19.1314 10.7121 18.8777 10.4584C18.624 10.2047 18.2678 10.0393 17.5952 9.94888C16.9028 9.85579 15.9851 9.85433 14.6693 9.85433H7.33594C6.02014 9.85433 5.10245 9.85579 4.41005 9.94888Z"
+                fill=""
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+
+      <div className="mb-5">
+        <label
+          htmlFor="password"
+          className="mb-2.5 block font-medium text-dark dark:text-white"
+        >
+          Re-type Password
+        </label>
+        <div className="relative">
+          <input
+            type="password"
+            name="repassword"
+            placeholder="Re-enter your password"
             autoComplete="password"
             className="w-full rounded-lg border border-stroke bg-transparent py-[15px] pl-6 pr-11 font-medium text-dark outline-none focus:border-primary focus-visible:shadow-none dark:border-dark-3 dark:bg-dark-2 dark:text-white dark:focus:border-primary"
           />
@@ -127,54 +213,12 @@ export default function SigninWithPassword() {
         </div>
       </div>
 
-      <div className="mb-6 flex items-center justify-between gap-2 py-2">
-        <label
-          htmlFor="remember"
-          className="flex cursor-pointer select-none items-center font-satoshi text-base font-medium text-dark dark:text-white"
-        >
-          <input
-            type="checkbox"
-            name="remember"
-            id="remember"
-            className="peer sr-only"
-          />
-          <span
-            className={`mr-2.5 inline-flex h-5.5 w-5.5 items-center justify-center rounded-md border border-stroke bg-white text-white text-opacity-0 peer-checked:border-primary peer-checked:bg-primary peer-checked:text-opacity-100 dark:border-stroke-dark dark:bg-white/5 ${
-              data.remember ? "bg-primary" : ""
-            }`}
-          >
-            <svg
-              width="10"
-              height="7"
-              viewBox="0 0 10 7"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M9.70692 0.292787C9.89439 0.480314 9.99971 0.734622 9.99971 0.999786C9.99971 1.26495 9.89439 1.51926 9.70692 1.70679L4.70692 6.70679C4.51939 6.89426 4.26508 6.99957 3.99992 6.99957C3.73475 6.99957 3.48045 6.89426 3.29292 6.70679L0.292919 3.70679C0.110761 3.51818 0.00996641 3.26558 0.0122448 3.00339C0.0145233 2.74119 0.119692 2.49038 0.3051 2.30497C0.490508 2.11956 0.741321 2.01439 1.00352 2.01211C1.26571 2.00983 1.51832 2.11063 1.70692 2.29279L3.99992 4.58579L8.29292 0.292787C8.48045 0.105316 8.73475 0 8.99992 0C9.26508 0 9.51939 0.105316 9.70692 0.292787Z"
-                fill="currentColor"
-              />
-            </svg>
-          </span>
-          Remember me
-        </label>
-
-        <Link
-          href="/auth/forgot-password"
-          className="select-none font-satoshi text-base font-medium text-dark underline duration-300 hover:text-primary dark:text-white dark:hover:text-primary"
-        >
-          Forgot Password?
-        </Link>
-      </div>
-
       <div className="mb-4.5">
         <button
-          onClick={handleSignin}
+          onClick={handleSignup}
           className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary p-4 font-medium text-white transition hover:bg-opacity-90"
         >
-          Sign In
+          Create account
         </button>
       </div>
     </>

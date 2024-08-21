@@ -17,7 +17,7 @@ const PaymentSuccess = () => {
     if (hasRun.current) return
     
     const fetchData = async() => {
-      const response = await fetch(`/api/payment/success?session_id=${session_id}`);
+      const response = await fetch(`/api/payments/success?session_id=${session_id}`);
       const data = await response.json();
       setData(data.message);
     }
