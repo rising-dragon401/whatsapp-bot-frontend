@@ -1,10 +1,10 @@
 "use client";
 import React, { useState, ReactNode } from "react";
-import Sidebar from "@/components/Sidebar";
-import Header from "@/components/Header";
+import AdminSidebar from "@/components/AdminSideBar";
+import AdminHeader from "@/components/AdminHeader";
 import { AuthProvider } from "@/context/AuthContext";
 
-export default function DefaultLayout({
+export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -15,13 +15,13 @@ export default function DefaultLayout({
       {/* <!-- ===== Page Wrapper Star ===== --> */}
       <div className="flex h-screen overflow-hidden">
         {/* <!-- ===== Sidebar Star ===== --> */}
-        <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        <AdminSidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         {/* <!-- ===== Sidebar End ===== --> */}
 
         {/* <!-- ===== Content Area Star ===== --> */}
         <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
           {/* <!-- ===== Header Star ===== --> */}
-          <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+          <AdminHeader sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
           {/* <!-- ===== Header End ===== --> */}
 
           {/* <!-- ===== Main Content Star ===== --> */}
