@@ -47,7 +47,7 @@ const EditWaBot = () => {
   useEffect(() => {
     const fetchData =  async () => {
       try{
-        const response = await axiosInstance.get(`/wabot/${WaBotId}`)
+        const response = await axiosInstance.get(`/wabots/${WaBotId}`)
         if (response) {
           let botdata = response.data;
           setBotName(botdata["name"]);
@@ -71,7 +71,7 @@ const EditWaBot = () => {
 
   const handleSave = async () => {
     try {
-      const response = await axiosInstance.put(`/wabot/${WaBotId}`, {
+      const response = await axiosInstance.put(`/wabots/${WaBotId}`, {
         "name": botName,
         "description": description,
         "price": botPrice,

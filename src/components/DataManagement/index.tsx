@@ -24,7 +24,7 @@ const DataManagementBox = () => {
   useEffect(() => {
     const fetchPdffiles = async () => {
       try {
-        const response = await axiosInstance.get('/pdffile/')
+        const response = await axiosInstance.get('/pdffiles')
         if (response)
           setPdfFiles(response.data);
       } catch (error) {
@@ -81,7 +81,7 @@ const DataManagementBox = () => {
         const pdfdata = JSON.parse(event.data);
         if (pdfdata.status === "success") {
           try {
-            const response = await axiosInstance.post('/pdffile/', {
+            const response = await axiosInstance.post('/pdffiles', {
               "name": pdfdata.filename,
               "path": pdfdata.pathname,
               "size": pdfdata.size,
@@ -113,7 +113,7 @@ const DataManagementBox = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      const response = await axiosInstance.delete(`/pdffile/${id}`);
+      const response = await axiosInstance.delete(`/pdffiles/${id}`);
       if (response) {
         setListChanged(!listChanged)
       }
@@ -123,7 +123,7 @@ const DataManagementBox = () => {
 
   const handleStartEmbedding = async () => {
     try {
-      const response = await axiosInstance.post("/pdffile/embedding");
+      const response = await axiosInstance.post("/pdffiles/embedding");
       if (response) {
       }
     } catch (error) {

@@ -45,7 +45,7 @@ const CreateWaBot = () => {
 
   const handleSave = async () => {
     try {
-      const response = await axiosInstance.post('/wabot/', {
+      const response = await axiosInstance.post('/wabots', {
         "name": botName,
         "description": description,
         "price": botPrice,

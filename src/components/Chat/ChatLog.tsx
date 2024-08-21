@@ -25,7 +25,7 @@ const ChatLog = () =>{
 
     const fetchWabots = async () => {
       try {
-        const response = await axiosInstance.get("wabot/");
+        const response = await axiosInstance.get("/wabots");
         if (response) {
           const bots = response.data;
           setWabots(response.data);
@@ -47,7 +47,7 @@ const ChatLog = () =>{
 
     const fetchUsers = async () => {
       try {
-        const response = await axiosInstance.get(`user?bot_id=${slectedWabotId}`);
+        const response = await axiosInstance.get(`/botusers?bot_id=${slectedWabotId}`);
         if (response) {
           setUsers(response.data);
           setSelectedUser(null);
@@ -63,7 +63,7 @@ const ChatLog = () =>{
   
   const handleSelectUser = async (id: string) => {
     try {
-      const response = await axiosInstance.get(`/user/${id}`)
+      const response = await axiosInstance.get(`/botusers/${id}`)
       if (response) {
         const selected_user = response.data;
         setSelectedUser(selected_user);

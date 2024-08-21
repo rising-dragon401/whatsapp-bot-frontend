@@ -14,7 +14,7 @@ const WaBotsTable = () => {
   useEffect(() => {
     const fetchWaBots = async () => {
       try {
-        const response = await axiosInstance.get('/wabot/')
+        const response = await axiosInstance.get('/wabots')
         if (response)
           setWaBots(response.data);
       } catch (error) {
@@ -31,7 +31,7 @@ const WaBotsTable = () => {
   const handleDelete = (id: string) => {
     const deleteBot = async () => {
       try {
-        const response = await axiosInstance.delete(`/wabot/${id}`);
+        const response = await axiosInstance.delete(`/wabots/${id}`);
 
         if (response) {
           const indexOfRemove = waBots.findIndex(wabot => wabot._id === id);

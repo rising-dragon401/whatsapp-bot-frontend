@@ -1,14 +1,14 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: 'https://homi.chat/api/'
+  baseURL: 'https://homi.chat/api'
 });
 
 const refreshToken = async () => {
   try {
     const access_token = localStorage.getItem('access_token');
     const refresh_token = localStorage.getItem('refresh_token');
-    const response = await axios.post(`https://homi.chat/api/auth/refresh`, {
+    const response = await axios.post(`https://homi.chat/api/auth/refresh/`, {
       "access_token": access_token,
       "refresh_token": refresh_token
     });
