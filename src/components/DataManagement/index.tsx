@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import axiosInstance from "@/api/axiosConfig";
-import ButtonDefault from "../Buttons/ButtonDefault";
+import { PdfFile } from "@/types/pdffile";
 
 const convertFileSize = (bytes: number) => {
   if (bytes > 1048576) {
@@ -17,7 +17,7 @@ const convertFileSize = (bytes: number) => {
 
 const DataManagementBox = () => {
   const [file, setFile] = useState<File | null>(null);
-  const [pdfFiles, setPdfFiles] = useState([]);
+  const [pdfFiles, setPdfFiles] = useState<PdfFile[] | []>([]);
   const [fileUploaded, setFileUploaded] = useState(false);
   const [listChanged, setListChanged] = useState(false);
 
@@ -171,28 +171,28 @@ const DataManagementBox = () => {
                         className={`border-[#eee] px-4 py-4 dark:border-dark-3 xl:pl-7.5 ${index === pdfFiles.length - 1 ? "border-b-0" : "border-b"}`}
                       >
                         <h5 className="text-dark dark:text-white">
-                          {pdfFile["name"]}
+                          {pdfFile.name}
                         </h5>
                       </td>
                       <td
                         className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === pdfFiles.length - 1 ? "border-b-0" : "border-b"}`}
                       >
                         <p className="mt-[3px] text-body-sm font-medium">
-                          {convertFileSize(pdfFile["size"])}
+                          {convertFileSize(pdfFile.size)}
                         </p>
                       </td>
                       <td
                         className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === pdfFiles.length - 1 ? "border-b-0" : "border-b"}`}
                       >
                         <p className="text-dark dark:text-white">
-                          {pdfFile["created_at"]}
+                          {pdfFile.created_at}
                         </p>
                       </td>
                       <td
                         className={`border-[#eee] px-4 py-4 dark:border-dark-3 xl:pr-7.5 ${index === pdfFiles.length - 1 ? "border-b-0" : "border-b"}`}
                       >
                         <div className="flex items-center justify-end space-x-3.5">
-                          <button className="hover:text-primary" onClick={() => handleDelete(pdfFile["_id"])}>
+                          <button className="hover:text-primary" onClick={() => handleDelete(pdfFile._id)}>
                             <svg
                               className="fill-current"
                               width="20"

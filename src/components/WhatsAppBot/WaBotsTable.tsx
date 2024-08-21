@@ -4,9 +4,10 @@ import Image from "next/image";
 import ButtonDefault from "@/components/Buttons/ButtonDefault";
 import axiosInstance from "@/api/axiosConfig";
 import { useRouter } from "next/navigation";
+import { Wabot } from "@/types/wabot";
 
 const WaBotsTable = () => {
-  const [waBots, setWaBots] = useState([])
+  const [waBots, setWaBots] = useState<Wabot[] | []>([])
 
   const router = useRouter();
 
@@ -33,7 +34,7 @@ const WaBotsTable = () => {
         const response = await axiosInstance.delete(`/wabot/${id}`);
 
         if (response) {
-          const indexOfRemove = waBots.findIndex(wabot => wabot['id'] === id);
+          const indexOfRemove = waBots.findIndex(wabot => wabot._id === id);
           if (indexOfRemove !== -1) {
             setWaBots(waBots.splice(indexOfRemove, 1))
           }
@@ -95,34 +96,44 @@ const WaBotsTable = () => {
             {waBots.map((waBot, index) => (
               <tr key={index}>
                 <td
-                  className={`border-[#eee] px-4 py-4 dark:border-dark-3 xl:pl-7.5 ${index === waBots.length - 1 ? "border-b-0" : "border-b"}`}
+                  className={`flex border-[#eee] px-4 py-4 dark:border-dark-3 xl:pl-7.5 ${index === waBots.length - 1 ? "border-b-0" : "border-b"}`}
                 >
-                  <h5 className="text-dark dark:text-white">
-                    {waBot["name"]}
-                  </h5>
-                  <p className="mt-[3px] text-body-sm font-medium">
-                    ${waBot["price"]}
+                  <div className="h-12.5 w-15 rounded-md">
+                    <Image
+                      src={waBot.avatar ? waBot.avatar : "/images/icon/bot.png"}
+                      width={45}
+                      height={45}
+                      alt="Bot"
+                    />
+                  </div>
+                  <div className="px-5">
+                    <h5 className="text-dark dark:text-white">
+                      {waBot.name}
+                    </h5>
+                    <p className="mt-[3px] text-body-sm font-medium">
+                      ${waBot.price}
+                    </p>
+                  </div>
+                </td>
+                <td
+                  className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === waBots.length - 1 ? "border-b-0" : "border-b"}`}
+                >
+                  <p className="text-dark dark:text-white">
+                    {waBot.bot_number}
                   </p>
                 </td>
                 <td
                   className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === waBots.length - 1 ? "border-b-0" : "border-b"}`}
                 >
                   <p className="text-dark dark:text-white">
-                    {waBot["bot_number"]}
-                  </p>
-                </td>
-                <td
-                  className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === waBots.length - 1 ? "border-b-0" : "border-b"}`}
-                >
-                  <p className="text-dark dark:text-white">
-                    {waBot["visitor"]}
+                    {waBot.visitor}
                   </p>
                 </td>
                 <td
                   className={`border-[#eee] px-4 py-4 dark:border-dark-3 xl:pr-7.5 ${index === waBots.length - 1 ? "border-b-0" : "border-b"}`}
                 >
                   <div className="flex items-center justify-end space-x-3.5">
-                    <button className="hover:text-primary" onClick={() => handleView(waBot["_id"])}>
+                    <button className="hover:text-primary" onClick={() => handleView(waBot._id)}>
                       <svg
                         className="fill-current"
                         width="20"
@@ -145,7 +156,7 @@ const WaBotsTable = () => {
                         />
                       </svg>
                     </button>
-                    <button className="hover:text-primary" onClick={() => handleDelete(waBot["_id"])}>
+                    <button className="hover:text-primary" onClick={() => handleDelete(waBot._id)}>
                       <svg
                         className="fill-current"
                         width="20"

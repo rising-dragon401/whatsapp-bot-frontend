@@ -1,15 +1,11 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 import { useRouter } from "next/navigation";
-
-interface User {
-  email: string;
-  name: string;
-}
+import { AdminUser } from "@/types/user";
 
 interface AuthContextType {
-  user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  user: AdminUser | null;
+  setUser: React.Dispatch<React.SetStateAction<AdminUser | null>>;
 }
 
 const defaultContextValue: AuthContextType = {
@@ -20,7 +16,7 @@ const defaultContextValue: AuthContextType = {
 const AuthContext = createContext<AuthContextType>(defaultContextValue);
 
 export const AuthProvider = ({ children, }: Readonly<{children: React.ReactNode;}>) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<AdminUser | null>(null);
   const router = useRouter();
 
   useEffect(() => {
