@@ -3,14 +3,16 @@ import Link from "next/link";
 import Image from "next/image";
 import ClickOutside from "@/components/ClickOutside";
 import { useAuth } from "@/context/AuthContext";
-import { signOut } from "@/utils/auth";
+import { useRouter } from "next/navigation";
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { user } = useAuth();
+  const router = useRouter();
 
   const handleSignOut = () => {
-    signOut();
+    localStorage.removeItem('accessToken');
+    router.push('/auth/signin');
   }
 
   return (

@@ -42,7 +42,6 @@ axiosInstance.interceptors.response.use(
         return axiosInstance.request(error.config);
       } catch (refreshError) {
         console.error('Token refresh failed', refreshError);
-        window.location.href = '/auth/signin';
       }
     }
 
