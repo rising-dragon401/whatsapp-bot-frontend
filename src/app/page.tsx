@@ -1,20 +1,22 @@
-import ECommerce from "@/components/Dashboard/E-commerce";
-import { Metadata } from "next";
-import DefaultLayout from "@/components/Layouts/DefaultLaout";
 import React from "react";
+import { Metadata } from "next";
+import AdminLayout from "@/components/Layouts/AdminLayout";
+import AdminBreadcrumb from "@/components/Breadcrumbs/AdminBreadcrumb";
+import WaBotsTable from "@/components/WhatsAppBot/WaBotsTable";
+
 
 export const metadata: Metadata = {
-  title:
-    "Next.js E-commerce Dashboard Page | NextAdmin - Next.js Dashboard Kit",
-  description: "This is Next.js Home page for NextAdmin Dashboard Kit",
+  title: "AI Bot Admin Page | Homi Chat Platform"
 };
 
 export default function Home() {
   return (
-    <>
-      <DefaultLayout>
-        <ECommerce />
-      </DefaultLayout>
-    </>
+    <AdminLayout>
+      <AdminBreadcrumb pageName="WhatsApp Bots" />
+      
+      <div className="flex flex-col gap-10">
+        <WaBotsTable />
+      </div>
+    </AdminLayout>
   );
 }
