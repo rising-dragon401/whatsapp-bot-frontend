@@ -50,7 +50,7 @@ const BotManagerTable = () => {
     <div className="rounded-[10px] border border-stroke bg-white p-4 shadow-1 dark:border-dark-3 dark:bg-gray-dark dark:shadow-card sm:p-7.5">
       <div className="flex flex-grow px-4 py-6 md:px-6 xl:px-9 justify-between border-b border-stroke dark:border-dark-3">
         <h4 className="text-body-2xlg font-bold text-dark dark:text-white">
-          Bot List
+          Manager List
         </h4>
         <ButtonDefault
           label="Create New Bot"
@@ -110,9 +110,9 @@ const BotManagerTable = () => {
                     />
                   </div>
                   <div className="px-5">
-                    <h5 className="text-dark dark:text-white">
+                    <p className="text-dark dark:text-white">
                       {botManager.name}
-                    </h5>
+                    </p>
                   </div>
                 </td>
                 <td
