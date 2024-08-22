@@ -5,7 +5,7 @@ import AdminBreadcrumb from "@/components/Breadcrumbs/AdminBreadcrumb";
 import CreateWaBot from "@/components/WhatsAppBot/CreateWaBot";
 
 export const metadata: Metadata = {
-  title: "WhatsApp AI Bot Page | Homi Chat Platform"
+  title: "WhatsApp AI Bot Management  | Homi Chat Platform"
 };
 
 const WhatsappBotSettingPage: React.FC = () => {

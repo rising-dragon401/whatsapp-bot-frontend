@@ -4,27 +4,27 @@ import Image from "next/image";
 import ButtonDefault from "@/components/Buttons/ButtonDefault";
 import axiosInstance from "@/api/axiosConfig";
 import { useRouter } from "next/navigation";
-import { Wabot } from "@/types/wabot";
+import { BotManager } from "@/types/botmanager";
 import { useAuth } from "@/context/AuthContext";
 
-const WaBotsTable = () => {
-  const [waBots, setWaBots] = useState<Wabot[] | []>([]);
+const BotManagerTable = () => {
+  const [botManagers, setBotManagers] = useState<BotManager[] | []>([]);
   const [listChanged, setListChanged] = useState(false);
   const { user } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
     if (user == null) return;
-    const fetchWaBots = async () => {
+    const fetchBotManagers = async () => {
       try {
-        const response = await axiosInstance.get(`/wabots/?admin_id=${user?.id}&permission=${user?.permission}`)
+        const response = await axiosInstance.get(`/adminusers/?admin_id=${user?.id}&permission=${user?.permission}`)
         if (response)
-          setWaBots(response.data);
+          setBotManagers(response.data);
       } catch (error) {
       }
     }
 
-    fetchWaBots();
+    fetchBotManagers();
   }, [user, listChanged])
 
   const handleView = (id: string) => {
@@ -32,22 +32,18 @@ const WaBotsTable = () => {
   }
 
   const handleDelete = (id: string) => {
-    const deleteBot = async () => {
+    const deleteBotManager = async () => {
       try {
         const response = await axiosInstance.delete(`/wabots/${id}`);
 
         if (response) {
           setListChanged(!listChanged);
-          // const indexOfRemove = waBots.findIndex(wabot => wabot._id === id);
-          // if (indexOfRemove !== -1) {
-          //   setWaBots(waBots.splice(indexOfRemove, 1))
-          // }
         }
       } catch (error) {
       }
     }
 
-    deleteBot()
+    deleteBotManager()
   }
 
   return (
@@ -86,10 +82,13 @@ const WaBotsTable = () => {
                 Name
               </th>
               <th className="min-w-[150px] px-4 py-4 font-medium text-dark dark:text-white">
-                Bot Number
+                Email
               </th>
               <th className="min-w-[120px] px-4 py-4 font-medium text-dark dark:text-white">
-                Visitors
+                Bot Count
+              </th>
+              <th className="min-w-[120px] px-4 py-4 font-medium text-dark dark:text-white">
+                Permission
               </th>
               <th className="px-4 py-4 text-right font-medium text-dark dark:text-white xl:pr-7.5">
                 Actions
@@ -97,14 +96,14 @@ const WaBotsTable = () => {
             </tr>
           </thead>
           <tbody>
-            {waBots.map((waBot, index) => (
+            {botManagers.map((botManager, index) => (
               <tr key={index}>
                 <td
-                  className={`flex border-[#eee] px-4 py-4 dark:border-dark-3 xl:pl-7.5 ${index === waBots.length - 1 ? "border-b-0" : "border-b"}`}
+                  className={`flex border-[#eee] px-4 py-4 dark:border-dark-3 xl:pl-7.5 ${index === botManagers.length - 1 ? "border-b-0" : "border-b"}`}
                 >
                   <div className="h-12.5 w-15 rounded-md">
                     <Image
-                      src={waBot.avatar ? waBot.avatar : "/images/icon/bot.png"}
+                      src={botManager.avatar ? botManager.avatar : "/images/user/manager.png"}
                       width={45}
                       height={45}
                       alt="Bot"
@@ -112,32 +111,36 @@ const WaBotsTable = () => {
                   </div>
                   <div className="px-5">
                     <h5 className="text-dark dark:text-white">
-                      {waBot.name}
+                      {botManager.name}
                     </h5>
-                    <p className="mt-[3px] text-body-sm font-medium">
-                      ${waBot.price}
-                    </p>
                   </div>
                 </td>
                 <td
-                  className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === waBots.length - 1 ? "border-b-0" : "border-b"}`}
+                  className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === botManagers.length - 1 ? "border-b-0" : "border-b"}`}
                 >
                   <p className="text-dark dark:text-white">
-                    {waBot.bot_number}
+                    {botManager.email}
                   </p>
                 </td>
                 <td
-                  className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === waBots.length - 1 ? "border-b-0" : "border-b"}`}
+                  className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === botManagers.length - 1 ? "border-b-0" : "border-b"}`}
                 >
                   <p className="text-dark dark:text-white">
-                    {waBot.visitor}
+                    {botManager.botCount}
                   </p>
                 </td>
                 <td
-                  className={`border-[#eee] px-4 py-4 dark:border-dark-3 xl:pr-7.5 ${index === waBots.length - 1 ? "border-b-0" : "border-b"}`}
+                  className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${index === botManagers.length - 1 ? "border-b-0" : "border-b"}`}
+                >
+                  <p className="text-dark dark:text-white">
+                    {botManager.permission.toUpperCase()}
+                  </p>
+                </td>
+                <td
+                  className={`border-[#eee] px-4 py-4 dark:border-dark-3 xl:pr-7.5 ${index === botManagers.length - 1 ? "border-b-0" : "border-b"}`}
                 >
                   <div className="flex items-center justify-end space-x-3.5">
-                    <button className="hover:text-primary" onClick={() => handleView(waBot._id)}>
+                    <button className="hover:text-primary" onClick={() => handleView(botManager.id)}>
                       <svg
                         className="fill-current"
                         width="20"
@@ -160,7 +163,7 @@ const WaBotsTable = () => {
                         />
                       </svg>
                     </button>
-                    <button className="hover:text-primary" onClick={() => handleDelete(waBot._id)}>
+                    <button className="hover:text-primary" onClick={() => handleDelete(botManager.id)}>
                       <svg
                         className="fill-current"
                         width="20"
@@ -200,4 +203,4 @@ const WaBotsTable = () => {
   );
 };
 
-export default WaBotsTable;
+export default BotManagerTable;

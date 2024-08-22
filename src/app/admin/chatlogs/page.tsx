@@ -5,7 +5,7 @@ import AdminBreadcrumb from "@/components/Breadcrumbs/AdminBreadcrumb";
 import ChatLog from "@/components/Chat/ChatLog";
 
 export const metadata: Metadata = {
-  title: "Chat Log Page | Homi Chat Platform"
+  title: "WhatsApp AI Bot Management  | Homi Chat Platform"
 };
 
 const ChatlogPage: React.FC = () => {

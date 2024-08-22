@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import axiosInstance from "@/api/axiosConfig";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 
 const GptModelOptions = [
   {
@@ -34,6 +35,7 @@ const CreateWaBot = () => {
   const [systemPrompt, setSystemPrompt] = useState<string>("");
 
   const router = useRouter();
+  const { user } = useAuth();
 
   const changeTextColor = () => {
     setIsOptionSelected(true);
@@ -45,14 +47,15 @@ const CreateWaBot = () => {
 
   const handleSave = async () => {
     try {
-      const response = await axiosInstance.post('/wabots', {
+      const response = await axiosInstance.post(`/wabots/`, {
         "name": botName,
         "description": description,
         "price": botPrice,
         "bot_number": "whatsapp:" + botNumber,
         "system_prompt": systemPrompt,
         "gpt_model": gptModel,
-        "openai_api_key": openaiApiKey
+        "openai_api_key": openaiApiKey,
+        "admin_id": user?.id
       })
       if (response)
         router.push('/admin/whatsapp');

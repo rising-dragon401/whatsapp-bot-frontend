@@ -21,7 +21,9 @@ export type User = {
 }
 
 export type AdminUser = {
+  id: string,
   email: string,
   name: string,
+  permission: string,
   avatar: string,
 }

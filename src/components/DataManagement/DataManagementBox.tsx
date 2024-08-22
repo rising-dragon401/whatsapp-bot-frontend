@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axiosInstance from "@/api/axiosConfig";
 import { PdfFile } from "@/types/pdffile";
+import { useAuth } from "@/context/AuthContext";
 
 const convertFileSize = (bytes: number) => {
   if (bytes > 1048576) {
@@ -20,11 +21,13 @@ const DataManagementBox = () => {
   const [pdfFiles, setPdfFiles] = useState<PdfFile[] | []>([]);
   const [fileUploaded, setFileUploaded] = useState(false);
   const [listChanged, setListChanged] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
+    if (user == null) return;
     const fetchPdffiles = async () => {
       try {
-        const response = await axiosInstance.get('/pdffiles')
+        const response = await axiosInstance.get(`/pdffiles/?admin_id=${user.id}&permission=${user.permission}`)
         if (response)
           setPdfFiles(response.data);
       } catch (error) {
@@ -32,7 +35,7 @@ const DataManagementBox = () => {
     }
 
     fetchPdffiles();
-  }, [fileUploaded, listChanged])
+  }, [fileUploaded, listChanged, user])
 
   const handleFileChange = (e: any) => {
     const selectedFile = e.target.files[0];
@@ -81,10 +84,11 @@ const DataManagementBox = () => {
         const pdfdata = JSON.parse(event.data);
         if (pdfdata.status === "success") {
           try {
-            const response = await axiosInstance.post('/pdffiles', {
+            const response = await axiosInstance.post('/pdffiles/', {
               "name": pdfdata.filename,
               "path": pdfdata.pathname,
               "size": pdfdata.size,
+              "admin_id": user?.id,
               "created_at": pdfdata.created_at,
             })
             if (response) {
@@ -123,7 +127,7 @@ const DataManagementBox = () => {
 
   const handleStartEmbedding = async () => {
     try {
-      const response = await axiosInstance.post("/pdffiles/embedding");
+      const response = await axiosInstance.post("/pdffiles/embedding/");
       if (response) {
       }
     } catch (error) {
@@ -139,12 +143,15 @@ const DataManagementBox = () => {
               <h4 className="text-body-2xlg font-bold text-dark dark:text-white">
                 Data List
               </h4>
-              <button
-                className="flex items-center justify-center rounded-[7px] bg-primary px-6 py-[7px] font-medium text-gray-2 hover:bg-opacity-90"
-                onClick={handleStartEmbedding}
-              >
-                Start Embedding
-              </button>
+              {
+                user?.permission == "admin" &&
+                <button
+                  className="flex items-center justify-center rounded-[7px] bg-primary px-6 py-[7px] font-medium text-gray-2 hover:bg-opacity-90"
+                  onClick={handleStartEmbedding}
+                >
+                  Start Embedding
+                </button>
+              }
             </div>
             <div className="p-7">
               <table className="w-full table-auto">

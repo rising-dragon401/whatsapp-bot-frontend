@@ -5,13 +5,13 @@ import AdminBreadcrumb from "@/components/Breadcrumbs/AdminBreadcrumb";
 import EditWaBot from "@/components/WhatsAppBot/EditWaBot";
 
 export const metadata: Metadata = {
-  title: "WhatsApp AI Bot Page | Homi Chat Platform"
+  title: "WhatsApp AI Bot Management  | Homi Chat Platform"
 };
 
 const WhatsappBotEdit: React.FC = () => {
   return (
     <AdminLayout>
-      <AdminBreadcrumb pageName="Create New WhatsApp Bot" />
+      <AdminBreadcrumb pageName="Edit WhatsApp Bot" />
       
       <div className="flex flex-col gap-10">
         <EditWaBot />

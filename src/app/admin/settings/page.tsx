@@ -4,7 +4,7 @@ import React from "react";
 import AdminBreadcrumb from "@/components/Breadcrumbs/AdminBreadcrumb";
 
 export const metadata: Metadata = {
-  title: "Settings Page | Homi Chat Platform"
+  title: "WhatsApp AI Bot Management  | Homi Chat Platform"
 };
 
 const SettingsPage: React.FC = () => {

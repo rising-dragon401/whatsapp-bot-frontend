@@ -4,6 +4,7 @@ import Image from "next/image";
 import axiosInstance from "@/api/axiosConfig";
 import { ChatHistory, User } from "@/types/user"
 import { Wabot } from "@/types/wabot";
+import { useAuth } from "@/context/AuthContext";
 
 const ChatLog = () =>{
   const [users, setUsers] = useState<User[] | []>([]);
@@ -14,18 +15,18 @@ const ChatLog = () =>{
   const [slectedWabotId, setSelectedWabotId] = useState<string>("");
   const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
 
-  const hasRun = useRef(false);
+  const { user } = useAuth();
 
   const changeTextColor = () => {
     setIsOptionSelected(true);
   };
 
   useEffect(() => {
-    if (hasRun.current) return
+    if (user == null) return
 
     const fetchWabots = async () => {
       try {
-        const response = await axiosInstance.get("/wabots");
+        const response = await axiosInstance.get(`/wabots/?admin_id=${user.id}&permission=${user.permission}`);
         if (response) {
           const bots = response.data;
           setWabots(response.data);
@@ -39,15 +40,14 @@ const ChatLog = () =>{
     }
     
     fetchWabots();
-    hasRun.current = true;
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     if (slectedWabotId === "") return
 
     const fetchUsers = async () => {
       try {
-        const response = await axiosInstance.get(`/botusers?bot_id=${slectedWabotId}`);
+        const response = await axiosInstance.get(`/botusers/?bot_id=${slectedWabotId}`);
         if (response) {
           setUsers(response.data);
           setSelectedUser(null);

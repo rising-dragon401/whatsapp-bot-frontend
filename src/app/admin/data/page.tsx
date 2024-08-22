@@ -2,10 +2,10 @@ import { Metadata } from "next";
 import AdminLayout from "@/components/Layouts/AdminLayout";
 import React from "react";
 import AdminBreadcrumb from "@/components/Breadcrumbs/AdminBreadcrumb";
-import DataManagementBox from "@/components/DataManagement";
+import DataManagementBox from "@/components/DataManagement/DataManagementBox";
 
 export const metadata: Metadata = {
-  title: "Data Management Page | Homi Chat Platform"
+  title: "WhatsApp AI Bot Management  | Homi Chat Platform"
 };
 
 const DataManagementPage: React.FC = () => {
