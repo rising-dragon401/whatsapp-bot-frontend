@@ -28,6 +28,7 @@ export const AuthProvider = ({ children, }: Readonly<{children: React.ReactNode;
       } else {
         const decodedToken = jwtDecode<JwtPayload>(token);
         const subject = JSON.stringify(decodedToken.sub);
+        console.log("+++++++++++++++++++++++++", subject)
         setUser(JSON.parse(subject));
       }
     } catch (error) {

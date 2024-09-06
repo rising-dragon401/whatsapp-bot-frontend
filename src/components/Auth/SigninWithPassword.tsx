@@ -24,7 +24,7 @@ export default function SigninWithPassword() {
         "password": password});
       localStorage.setItem('access_token', response.data.access_token);
       localStorage.setItem('refresh_token', response.data.refresh_token);
-      router.push('/admin');      
+      router.push('/');
     } catch (error) {
       if (error instanceof AxiosError) {
         setError(error.response? error.response.data.detail : 'An error occurred');

@@ -26,7 +26,7 @@ const ChatLog = () =>{
 
     const fetchWabots = async () => {
       try {
-        const response = await axiosInstance.get(`/wabots/?admin_id=${user.id}&permission=${user.permission}`);
+        const response = await axiosInstance.get(`/wabots`);
         if (response) {
           const bots = response.data;
           setWabots(response.data);

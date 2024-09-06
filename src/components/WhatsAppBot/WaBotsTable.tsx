@@ -17,7 +17,7 @@ const WaBotsTable = () => {
     if (user == null) return;
     const fetchWaBots = async () => {
       try {
-        const response = await axiosInstance.get(`/wabots/?admin_id=${user?.id}&permission=${user?.permission}`)
+        const response = await axiosInstance.get(`/wabots`)
         if (response)
           setWaBots(response.data);
       } catch (error) {

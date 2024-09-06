@@ -6,19 +6,20 @@ import WaBotsTable from "@/components/WhatsAppBot/WaBotsTable";
 import DefaultLayout from "@/components/Layouts/DefaultLaout";
 import LandingBox from "@/components/LandingBox";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+import ChattingBox from "@/components/Chatting";
 
 
 export const metadata: Metadata = {
   title: "AI Bot Admin Page | Homi Chat Platform"
 };
 
-export default function Home() {
+export default function Chatting() {
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Bots" />
+      <Breadcrumb pageName="Chatting" />
 
       <div className="flex flex-col gap-10">
-        <LandingBox />
+        <ChattingBox />
       </div>      
     </DefaultLayout>
   );
